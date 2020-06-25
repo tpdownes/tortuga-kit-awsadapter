@@ -24,8 +24,10 @@ runcmd:
   - 'cloud-init single --name puppet --frequency always'
   - curl -o /etc/pki/ca-trust/source/anchors/tortuga-ca.pem http://{{ installer }}:8008/ca.pem
   - update-ca-trust
+{% if insertnode_request is defined %}
   - systemctl daemon-reload
   - systemctl start launch-register-node.service
+{% endif %}
 
 # example mount of a filesystem on attached block device
 #mounts:
